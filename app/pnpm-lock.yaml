@@ -7,6 +7,7 @@ specifiers:
   apexcharts: ^3.33.0
   autoprefixer: ^10.4.2
   color: ^4.1.0
+  color-scheme: ^1.0.1
   daisyui: ^1.21.0
   postcss: ^8.4.5
   rollup: ^2.3.4
@@ -26,6 +27,7 @@ specifiers:
   typescript: ^4.5.4
 
 dependencies:
+  color-scheme: 1.0.1
   sirv-cli: 1.0.14
 
 devDependencies:
@@ -387,6 +389,10 @@ packages:
   /color-name/1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
     dev: true
+
+  /color-scheme/1.0.1:
+    resolution: {integrity: sha512-4x+ya6+z6g9DaTFSfVzTZc8TSjxHuDT40NB43N3XPUkQlF6uujhwH8aeMeq8HBgoQQog/vrYgJ16mt/eVTRXwQ==}
+    dev: false
 
   /color-string/1.9.0:
     resolution: {integrity: sha512-9Mrz2AQLefkH1UvASKj6v6hj/7eWgjnT/cVsR8CumieLoT+g900exWeNogqtweI8dxloXN9BDQTYro1oWu/5CQ==}
