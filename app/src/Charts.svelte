@@ -12,16 +12,15 @@
   const DATA_COUNT = 7;
   const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100};
   let years = 10;
-  let options;
 
-  function calcComplexPercent(startSum, percent){
-    let factor = percent / 100 + 1;
-    let points = []
-    for (let year of getYears(years)) {
-      points.push(Math.floor(startSum));
-      startSum *= factor;
-    }
-    return points;
+  async function calcComplexPercent(startSum, percent) {
+    let data = JSON.stringify({startSum, percent, amount: years});
+    let rsp = await fetch(
+      'http://localhost:8000/complex_percent',
+      {method: "POST", body: data,}
+    ).then(r => r.json());
+
+    return rsp.years
   }
 
   const randomInt = (min, max) => {
@@ -65,60 +64,56 @@
     }
     return years
   }
-  function recalculate() {
 
-    let options = {
-      series: [],
-      chart: {
-        type: 'area',
-        height: 350,
-        stacked: true,
-        colors,
-        stroke: {
-          curve: 'smooth'
-        },
-        fill: {
-          type: 'gradient',
-          gradient: {
-            opacityFrom: 0.6,
-            opacityTo: 0.8,
-          }
-        },
+  let options = {
+    series: [],
+    chart: {
+      type: 'area',
+      height: 350,
+      stacked: true,
+      colors,
+      stroke: {
+        curve: 'smooth'
       },
-      dataLabels: {
-        enabled: false
+      fill: {
+        type: 'gradient',
+        gradient: {
+          opacityFrom: 0.6,
+          opacityTo: 0.8,
+        }
       },
-      xaxis: {
-        type: 'datetime'
+    },
+    dataLabels: {
+      enabled: false
+    },
+    xaxis: {
+      type: 'datetime'
+    },
+    tooltip: {
+      x: {
+        format: 'yyyy'
       },
-      tooltip: {
-        x: {
-          format: 'yyyy'
-        },
-      },
-      title: {
-        text: 'Расчет сложного процента',
-        align: 'center'
-      },
-    }
+    },
+    title: {
+      text: 'Расчет сложного процента',
+      align: 'center'
+    },
+  }
 
-
+  async function recalculate() {
+    options.series = [];
     for (let instrument of $inputData) {
-
-      let data = zip(getYears(years), calcComplexPercent(instrument.start, instrument.percent))
+      let data = zip(getYears(years), await calcComplexPercent(+instrument.start, 1 + instrument.percent / 100))
       options.series.push({
         name: instrument.name,
         data
       });
     }
-    return options
+    options = options
   }
-  //
-  $: {
-    years, $inputData;
-    console.log('updated')
-    options = recalculate();
-  }
+
+  $: years && $inputData && recalculate();
+
 
   let scrollList;
   let autoscroll

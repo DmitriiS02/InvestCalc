@@ -22,7 +22,8 @@ public:
   {}
 public:
 
-  ENDPOINT("POST", "/complex_percent", handler, BODY_DTO(Object< CalcDtoRequest >, calcDtoRequest)) {
+  ADD_CORS(calcEndpoint)
+  ENDPOINT("POST", "/complex_percent", calcEndpoint, BODY_DTO(Object< CalcDtoRequest >, calcDtoRequest)) {
 
     auto responseDto = CalcDtoResponse::createShared();
     responseDto->years = {};

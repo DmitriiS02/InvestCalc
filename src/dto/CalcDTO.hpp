@@ -11,10 +11,8 @@
  *  Used in API for serialization/deserialization and validation
  */
 class CalcDtoResponse : public oatpp::DTO {
-
   DTO_INIT(CalcDtoResponse, DTO)
 
-//  DTO_FIELD(Vector<Int64>, years);
   DTO_FIELD(Vector<Int32>, years);
   DTO_FIELD(Int64, startSum);
   DTO_FIELD(Float32, percent);
@@ -24,7 +22,7 @@ class CalcDtoRequest : public oatpp::DTO {
   DTO_INIT(CalcDtoRequest, DTO)
   DTO_FIELD(Int64, startSum);
   DTO_FIELD(Float32, percent);
-  DTO_FIELD(Int32, amount);
+  DTO_FIELD(Int32, amount); // of years
 };
 
 class HelloDto : public oatpp::DTO {
