@@ -35,12 +35,19 @@ add_library(${project_name}-lib
 
 ## link libs
 
-find_package(oatpp 1.3.0 REQUIRED)
+#find_package(oatpp 1.3.0 REQUIRED)
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 
-target_link_libraries(${project_name}-lib
-        PUBLIC oatpp::oatpp
-        PUBLIC oatpp::oatpp-test
-        )
+conan_basic_setup()
+
+target_link_libraries(${project_name}-lib ${CONAN_LIBS})
+
+
+
+#target_link_libraries(${project_name}-lib
+#        PUBLIC oatpp::oatpp
+#        PUBLIC oatpp::oatpp-test
+#        )
 
 target_include_directories(${project_name}-lib PUBLIC src)
 
@@ -51,6 +58,10 @@ add_executable(${project_name}-exe
         test/app/MyApiTestClient.hpp)
 target_link_libraries(${project_name}-exe ${project_name}-lib)
 add_dependencies(${project_name}-exe ${project_name}-lib)
+
+install(TARGETS ${project_name}-exe DESTINATION ${CMAKE_SOURCE_DIR}/Release)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/app/public/ DESTINATION ${CMAKE_SOURCE_DIR}/Release/app)
+
 
 add_executable(${project_name}-test
         test/tests.cpp
@@ -71,3 +82,4 @@ set_target_properties(${project_name}-lib ${project_name}-exe ${project_name}-te
 
 enable_testing()
 add_test(project-tests ${project_name}-test)
+

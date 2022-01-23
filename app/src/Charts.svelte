@@ -13,6 +13,11 @@
   const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100};
   let years = 10;
 
+  /**
+   * \brief Функция запросов
+   * \details JavaScript Функция запросов к бэкенду для перерасчета данных, вызывается каждый раз при обновлении данных пользователем
+   *
+   */
   async function calcComplexPercent(startSum, percent) {
     let data = JSON.stringify({startSum, percent, amount: years});
     let rsp = await fetch(
