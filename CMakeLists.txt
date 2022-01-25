@@ -59,8 +59,8 @@ add_executable(${project_name}-exe
 target_link_libraries(${project_name}-exe ${project_name}-lib)
 add_dependencies(${project_name}-exe ${project_name}-lib)
 
-install(TARGETS ${project_name}-exe DESTINATION ${CMAKE_SOURCE_DIR}/Release)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/app/public/ DESTINATION ${CMAKE_SOURCE_DIR}/Release/app)
+install(TARGETS ${project_name}-exe DESTINATION ${project_name})
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/app/public/ DESTINATION ${project_name}/app)
 
 
 add_executable(${project_name}-test
